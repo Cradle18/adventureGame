@@ -1,13 +1,11 @@
 import time
 
-def print_slow(text, input_mode=False):
-    if input_mode:
-        return input(text)
+def print_slow(text):
     for char in text:
         print(char, end='', flush=True)
         time.sleep(0.09)
     print()
-    return None
+   
 
 class Scene:
     def __init__(self, name):
@@ -34,14 +32,21 @@ class Welcome(Scene):
 
 class Part1(Scene):
     def print_part1(self):
-        print_slow("The moon is bright and full above, the path before you lit, only by the moons reflection off your armour.")
+        print_slow("The moon is bright and full above, the path before you lit, only by the moons reflection off your armor.")
+        print_slow("You are surrounded by high tree's and thick bushes that flank ether side, blocking what you can see through the tree's, the forrest of HIGHRISE growls in the night.")
         print_slow(f"You follow a deralict road which leads towards nothing but darkness, gripping tight your {weapon}, ready for any surprise.")
-        print_slow("You are surrounded by high tree's and thick bushes at your side, the forrest of HIGHRISE growls in the night.")
+        
 
         print_slow(f"\nA noise ahead, a screech and a scratch, you ready your {weapon}, do you wish to investigate?(yes/no)")
         inspect_ahead = input()
 
-        if inspect_ahead.lower == "yes":
-            pass
+        if inspect_ahead == "yes":
+            print_slow(f"With one hand ready on your {weapon}, you move slowly towards the sound ahead, the scratching sound getting louder.")
+            print("\n'ROAR!'")
+            time.sleep(1)
+            print("\n'CRASH!'")
+            time.sleep(1)
+            print_slow("\nNow all you see is black! As you crash into a tree with a 'CRACK!'.")
+            print_slow("You lay slumbed, back against a broken a tree, a large shadow approaches over you and slings your lifeless body over it's shoulder and walks off back from where it came.")
         else:
-            pass
+            print("Dead")
