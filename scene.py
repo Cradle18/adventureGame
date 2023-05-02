@@ -77,13 +77,13 @@ class Lost(Scene):
         print("(Left, Right, Forwards, Backwards)")
         direction = input()
         if direction.lower() == self.directions[0]:
-            print("Yay!")
+            print("skeleton fight")
         elif direction.lower() == self.directions[1]:
-            print("o no!")
+            print("skeleton fight")
         elif direction.lower() == self.directions[2]:
-            print("dead")
-        elif direction.lower() == self.directions[3]:
             print("trap")
+        elif direction.lower() == self.directions[3]:
+            print("back to road captured")
         else:
             print("Invalid input!")
             
