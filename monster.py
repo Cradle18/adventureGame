@@ -15,6 +15,17 @@ class Monster():
     def death(self):
         print(f"{self.name} has died!")
 
+    #rolls a dice and selects weapon based on dice value.
+    def weapon_select(self):
+        dice_roll = randint(1,6) #get a random number to match to a weapon
+        if dice_roll >= 1 and dice_roll <= 3:
+            self.weapon = "Rusty Sword"
+        elif dice_roll >= 4 and dice_roll < 6:
+            self.weapon = "Pitch Fork"
+        else:
+            self.weapon = "Shiny Knife"
+        self.inventory.append(self.weapon)#stores it to the inventory of the monster.
+
 #easy monster class, all easy monters will have random health and weapons generated from the same conditions.
 class Monster_Easy(Monster):
     #class variables
@@ -24,17 +35,7 @@ class Monster_Easy(Monster):
     
     def __init__(self, name) -> None:
         super().__init__(name)
-
-        #rolls a dice and selects weapon based on dice value.
-        dice_roll = randint(1,6) #get a random number to match to a weapon
-        if dice_roll >= 1 and dice_roll <= 3:
-            self.weapon = "Rusty Sword"
-        elif dice_roll >= 4 and dice_roll < 6:
-            self.weapon = "Pitch Fork"
-        else:
-            self.weapon = "Shiny Knife"
-        
-        self.inventory.append(self.weapon)#stores it to the inventory of the monster.
+        self.weapon_select()
 
 #hard monster class, larger health poor selection and different weapons.  
 class Monster_hard(Monster):
@@ -45,16 +46,7 @@ class Monster_hard(Monster):
 
     def __init__(self, name) -> None:
         super().__init__(name)
-        #rolls a dice and selects weapon based on dice value.
-        dice_roll = randint(1,6) #get a random number to match to a weapon
-        if dice_roll >= 1 and dice_roll <= 3:
-            self.weapon = "Longsword"
-        elif dice_roll >= 4 and dice_roll < 6:
-            self.weapon = "Axe"
-        else:
-            self.weapon = "Crossbow"
-        
-        self.inventory.append(self.weapon)#stores it to the inventory of the monster.
+        self.weapon_select()
         
 #---testing---#
 m1 = Monster_Easy("Skelebob")
