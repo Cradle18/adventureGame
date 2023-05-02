@@ -2,15 +2,11 @@
 
 #---Imports---#
 import time
+from game_functions.print_slow import print_slow
+from user import User
 
+new_user = None
 
-#type writer effect, as if the words are being typed as they are presented
-def print_slow(text):
-    for char in text:
-        print(char, end='', flush=True) 
-        time.sleep(0.09)
-    print()
-   
 #scene class
 class Scene:
     directions = ["left", "right", "forward", "backward"]
@@ -18,6 +14,7 @@ class Scene:
         self.name = name
 
 class Welcome(Scene):
+    #start of welcome screen user inputs name and weapon
     def print_welcome(self):
         print("\t\t\t-------------------------------\n")
         print("\t\t\t\tAdventure Game\n")
@@ -25,28 +22,30 @@ class Welcome(Scene):
 
         print_slow("\n\tWELCOME!\n")
         print_slow("Before we begin our adventure, please tell me your name.")
-        global user 
-        user = input()
+        user = input() #holds users name
         print_slow("Wonderful, a worthy name for a young adventurer!")
         print_slow("Now, what weapon do you carry?")
-        global weapon
-        weapon = input()
-        print_slow(f"Excellent choice {user}, i hope this {weapon} keeps you safe, good luck!......")
+        weapon = input() #holds user weapon choice
+        global new_user
+        new_user = User(user, weapon) #instantiates new user with the user and weapon inputs
+        new_user.add_to_invent(weapon) #adding sword to inventory 
+        print_slow(f"Excellent choice {new_user.name}, i hope this {new_user.weapon} keeps you safe, good luck!......")
         time.sleep(1)
-        print_slow(f"\n\t\tWelcome Adventurer {user}!\n\nThe clock has struck midnight let our tale begin.\n")
+        print_slow(f"\n\t\tWelcome Adventurer {new_user.name}!\n\nThe clock has struck midnight let our tale begin.\n")
+        
         
 
 class Part1(Scene):
-
     def print_part1(self):
         print_slow("The moon is bright and full above, the path before you lit, only by the moons reflection off your armor.")
         print_slow("You are surrounded by high tree's and thick bushes that flank ether side, blocking what you can see through the tree's, the forrest of HIGHRISE growls in the night.")
-        print_slow(f"You follow a deralict road which leads towards nothing but darkness, gripping tight your {weapon}, ready for any surprise.")
+        print_slow(f"You follow a deralict road which leads towards nothing but darkness, gripping tight your {new_user.weapon}, ready for any surprise.")
         
 
-        print_slow(f"\nA noise ahead, a distant roar, you ready your {weapon} as the sound of crashing feet grows closer, do you wish to investigate?(yes/no)")
+        print_slow(f"\nA noise ahead, a distant roar, you ready your {new_user.weapon} as the sound of crashing feet grows closer, do you wish to investigate?(yes/no)")
         inspect_ahead = input()
 
+        #if statement to check what the user decides to do, then prints the next scene.
         if inspect_ahead == "yes":
             captured = Captured("Captured")
             captured.print_captured()
@@ -57,7 +56,8 @@ class Part1(Scene):
 
 class Captured(Scene):
     def print_captured(self):
-        print_slow(f"With one hand ready on your {weapon}, you move slowly towards the sound ahead, the thunderous clap hitting the ground getting louder!")
+        print_slow(f"With one hand ready on your {new_user.weapon}, you move slowly towards the sound ahead, the thunderous clap hitting the ground getting louder!")
+        new_user.lose_health(5)
         print("\n'ROAR!'")
         time.sleep(1)
         print("\n'CRASH!'")
