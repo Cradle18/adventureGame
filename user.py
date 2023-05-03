@@ -1,4 +1,5 @@
 #---Imports---#
+from random import randint
 
 class User():
     #user health, when depletes to 0, game over
@@ -33,9 +34,53 @@ class User():
             self.remove_from_invent(item) 
         else:
             print("You have no potions!")
+
+    #attack funtion to be used in battles, rolls to hit and then selects damage at random.
+    def attack(self):
+        to_hit = False 
+        roll = randint(1,6)
+        damage = 0
+        if roll > 2:
+            to_hit = True
+            while to_hit == True:
+                #using a try except block just incase any unknown errors happen in the battle.
+                try:
+                    damage = randint(10,20)
+                    print(f"Your attack did {damage} damage to the enemy!")
+                    to_hit = False
+                except Exception as e:
+                    print(f"Oops there was an error {e}")
+        else:
+            print("Your Attack misses!")
+        return damage #this will be used to decline the enemies health.
     
+    #block function, user can select to block, rolls for success and then gives a 50/50 chance for counter, which calls the attack function, theres a chance the counter will miss
+    def block(self):
+        block_success = False
+        roll = randint(1,6)
+        if roll <= 3:
+            block_success = True
+            while block_success == True:
+                try:
+                    counter_chance = randint(1,2)
+                    if counter_chance == 1:
+                        print("Block success, bonus counter attack!")
+                        self.attack()
+                    else:
+                        print("Block success!")
+                    block_success = False
+                except Exception as e:
+                    print(f"Oops there was an error {e}")
+        else:
+            print("Block failed you take x damage")
+            
     #prints you have died after a health check
     def death(self):
         if self.health <= 0:
             print("You have died!")
+
+
+"""u1 = User("Tom", "Sword")
+u1.attack()
+u1.block()"""
 

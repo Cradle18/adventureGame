@@ -46,6 +46,24 @@ class Monster_Easy(Monster):
     def __init__(self, name) -> None:
         super().__init__(name)
         self.weapon_select_easy()
+    
+    def attack(self):
+        to_hit = False 
+        roll = randint(1,6)
+        damage = 0
+        if roll > 4:
+            to_hit = True
+            while to_hit == True:
+                #using a try except block just incase any unknown errors happen in the battle.
+                try:
+                    damage = randint(5, 10)
+                    print(f"Your attack did {damage} damage to the enemy!")
+                    to_hit = False
+                except Exception as e:
+                    print(f"Oops there was an error {e}")
+        else:
+            print("Your Attack misses!")
+        return damage #this will be used to decline the enemies health.
 
 #hard monster class, larger health poor selection and different weapons.  
 class Monster_hard(Monster):
@@ -57,9 +75,27 @@ class Monster_hard(Monster):
     def __init__(self, name) -> None:
         super().__init__(name)
         self.weapon_select_hard()
+    
+    def attack(self):
+        to_hit = False 
+        roll = randint(1,6)
+        damage = 0
+        if roll > 3:
+            to_hit = True
+            while to_hit == True:
+                #using a try except block just incase any unknown errors happen in the battle.
+                try:
+                    damage = randint(10,20)
+                    print(f"Your attack did {damage} damage to the enemy!")
+                    to_hit = False
+                except Exception as e:
+                    print(f"Oops there was an error {e}")
+        else:
+            print("Your Attack misses!")
+        return damage #this will be used to decline the enemies health.
         
 #---testing---#
-m1 = Monster_Easy("Skelebob")
+"""m1 = Monster_Easy("Skelebob")
 m2 = Monster_hard("Skelechamp")
 print(f"My name is {m1.name}\tHealth: {m1.health}")
 print(f"I am holding a {m1.weapon}")
@@ -69,4 +105,4 @@ m1.death()
 print(f"\nMy name is {m2.name}\tHealth: {m2.health}")
 print(f"I am holding a {m2.weapon}")
 print(f"In my bag is:\n{m2.inventory}")
-m2.death()
+m2.death()"""
