@@ -57,12 +57,11 @@ class Monster_Easy(Monster):
                 #using a try except block just incase any unknown errors happen in the battle.
                 try:
                     damage = randint(5, 10)
-                    print(f"Your attack did {damage} damage to the enemy!")
                     to_hit = False
                 except Exception as e:
                     print(f"Oops there was an error {e}")
         else:
-            print("Your Attack misses!")
+            print(f"{self.name} Attack misses!")
         return damage #this will be used to decline the enemies health.
 
 #hard monster class, larger health poor selection and different weapons.  
@@ -86,12 +85,11 @@ class Monster_hard(Monster):
                 #using a try except block just incase any unknown errors happen in the battle.
                 try:
                     damage = randint(10,20)
-                    print(f"Your attack did {damage} damage to the enemy!")
                     to_hit = False
                 except Exception as e:
                     print(f"Oops there was an error {e}")
         else:
-            print("Your Attack misses!")
+            print(f"{self.name} Attack misses!")
         return damage #this will be used to decline the enemies health.
         
 #---testing---#

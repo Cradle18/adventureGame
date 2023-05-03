@@ -3,7 +3,7 @@ from random import randint
 
 class User():
     #user health, when depletes to 0, game over
-    health = 10
+    health = 50
     #users inventory, any items found are added to the list.
     inventory = []
     
@@ -56,23 +56,15 @@ class User():
     
     #block function, user can select to block, rolls for success and then gives a 50/50 chance for counter, which calls the attack function, theres a chance the counter will miss
     def block(self):
-        block_success = False
-        roll = randint(1,6)
-        if roll <= 3:
-            block_success = True
-            while block_success == True:
-                try:
-                    counter_chance = randint(1,2)
-                    if counter_chance == 1:
-                        print("Block success, bonus counter attack!")
-                        self.attack()
-                    else:
-                        print("Block success!")
-                    block_success = False
-                except Exception as e:
-                    print(f"Oops there was an error {e}")
+        damage = 0
+        counter_chance = randint(1,2)
+        if counter_chance == 1:
+            print("Block success, bonus counter attack!")
+            damage = self.attack()
         else:
-            print("Block failed you take x damage")
+            print("Block success!")
+        return damage
+                    
             
     #prints you have died after a health check
     def death(self):

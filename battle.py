@@ -1,6 +1,7 @@
 from monster import Monster_Easy, Monster_hard
 from user import User
 from game_functions.print_slow import print_slow
+from random import randint
 
 u1 = User("Tom", "Sword")
 m1 = Monster_Easy("Skelebob")
@@ -35,9 +36,39 @@ def battle(user, mons1=None, mons2=None):
                     else:
                         print("Invalid choice! Try again")
                 elif action_choice.lower() == "b":
-                    pass
+                    print(f"You raise you {user.weapon} to defend.")
+                    choose_enemy = 0
+                    if mons1.health <= 0:
+                        choose_enemy = 2
+                    elif mons2.health <= 0:
+                        choose_enemy = 1
+                    else:
+                        choose_enemy = randint(1, 2)
+                    print(f"chosen enemy is {choose_enemy}")
+                    if choose_enemy == 1:
+                            print(f"{mons1.name} Attacks!")
+                            mons1.attack()
+                            user_damage = user.block()
+                            mons1.lose_health(user_damage)
+                            if mons1.health <=0:
+                                mons1.death()
+                            elif user.health <= 0:
+                                user.death()
+                            else:
+                                continue
+                    elif choose_enemy == 2:
+                            print(f"{mons2.name} Attacks!")
+                            mons2.attack()
+                            user_damage = user.block()
+                            mons2.lose_health(user_damage)
+                            if mons2.health <= 0:
+                                mons2.death()
+                            if user.health <= 0:
+                                user.death()
+                    else:
+                        print("Oops an error occurred")
                 else:
-                    pass
+                    print("Error")
             else:
                 battle_on = False
         except Exception as e:
