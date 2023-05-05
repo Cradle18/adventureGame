@@ -14,10 +14,11 @@ def battle(user, mons1=None, mons2=None):
         try:
             if user.health > 0 and ((mons1 and mons1.health > 0) or (mons2 and mons2.health > 0)):
                 if mons1 and mons1.health > 0:
-                    print("\nName:\t\t\tHealth:\n")
+                    print("\nEnemy:\t\t\tHealth:\n")
                     print(f"{mons1.name}\t\t{mons1.health}\n")
                 if mons2 and mons2.health > 0:
                     print(f"{mons2.name}\t\t{mons2.health}\n")
+                print("---------------------------\n")
                 print(f"{user.name}\t\t\t{user.health}\n")
                 print_slow(f"{user.name}:(A)to attack | (B)to block | (P)to use a potion")
                 action_choice = input()
@@ -72,7 +73,6 @@ def battle(user, mons1=None, mons2=None):
                 elif action_choice.lower() == "p":
                     print(f"You use a potion")
                     user.use_potion("potion")
-                    print(user.health)
                 else:
                     print("Error")
             else:

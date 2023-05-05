@@ -3,7 +3,8 @@ from random import randint
 
 class User():
     #user health, when depletes to 0, game over
-    health = 8
+    health = 24
+    max_health = 50
     #users inventory, any items found are added to the list.
     inventory = ["potion", "potion", "potion", "potion"]
     
@@ -23,18 +24,24 @@ class User():
     def remove_from_invent(self, item):
         self.inventory.remove(item)
 
-    #adds a maximum of 5 health to user and removes potion from invent
+    #allows users to heal
     def use_potion(self, item):
-        if item in self.inventory and self.health <= 5: #check to see if potion is in invent and health is less than 5, then adds 5 to health.
-            self.health += 5
-            self.remove_from_invent(item)
-        elif item in self.inventory and self.health > 5 or self.health < 10: #same invent check as before, but also check the health if between 5 and 10.
-            to_heal = 10 - self.health #10 - current health to work out how much we need to heal by.
-            self.health = self.health + to_heal
-            self.remove_from_invent(item) 
+        max_heal = 25 #max amount of hp that can be healed
+        to_heal = 0
+        if item in self.inventory: #invent check
+            if self.health < self.max_health: #check if they need to heal
+                if self.health + max_heal > self.max_health: #work out amount of hp needs healing if less that max_heal
+                    to_heal = self.max_health - self.health
+                    self.health += to_heal
+                    self.remove_from_invent(item)
+                else:
+                    self.health += max_heal #if current health is greater than max heal, max heal will be applied
+                    self.remove_from_invent(item)
+            else:
+                print("You dont need that right now.")
         else:
             print("You have no potions!")
-
+        
     #attack funtion to be used in battles, rolls to hit and then selects damage at random.
     def attack(self):
         to_hit = False 
