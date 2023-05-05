@@ -3,9 +3,9 @@ from random import randint
 
 class User():
     #user health, when depletes to 0, game over
-    health = 50
+    health = 8
     #users inventory, any items found are added to the list.
-    inventory = []
+    inventory = ["potion", "potion", "potion", "potion"]
     
     def __init__(self, name, weapon):
         self.name = name
@@ -38,7 +38,7 @@ class User():
     #attack funtion to be used in battles, rolls to hit and then selects damage at random.
     def attack(self):
         to_hit = False 
-        roll = randint(1,6)
+        roll = randint(1,10)
         damage = 0
         if roll > 2:
             to_hit = True
@@ -57,8 +57,8 @@ class User():
     #block function, user can select to block, rolls for success and then gives a 50/50 chance for counter, which calls the attack function, theres a chance the counter will miss
     def block(self):
         damage = 0
-        counter_chance = randint(1,2)
-        if counter_chance == 1:
+        counter_chance = randint(1,10)
+        if counter_chance <= 7:
             print("Block success, bonus counter attack!")
             damage = self.attack()
         else:
