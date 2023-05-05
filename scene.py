@@ -4,6 +4,8 @@
 import time
 from game_functions.print_slow import print_slow
 from user import User
+from monster import Monster_Easy, Monster_hard
+from battle import battle
 
 new_user = None
 
@@ -76,10 +78,13 @@ class Lost(Scene):
         print_slow("You turn around and realise that now all you can see is black, no light it peering through tree's, which direction do you wish to take?")
         print("(Left, Right, Forwards, Backwards)")
         direction = input()
-        if direction.lower() == self.directions[0]:
-            print("skeleton fight")
-        elif direction.lower() == self.directions[1]:
-            print("skeleton fight")
+        if direction.lower() == self.directions[0] or direction.lower() == self.directions[1]:
+            print_slow("\nYou turn your head left and then right, you think you can see light, you turn and begin to walk forward.")
+            print_slow("After what seems like hours, a little moonlight begins to peer through the tree's ahead and you pick up the pace hoping to reach the path again.")
+            print_slow("A rustle from the bush ahead startles you, as two skeletons charge at you with there swords raised\n")
+            mons1 = Monster_Easy("Skulldugery")
+            mons2 = Monster_Easy("Skelebob")
+            battle(new_user, mons1, mons2)
         elif direction.lower() == self.directions[2]:
             print("trap")
         elif direction.lower() == self.directions[3]:

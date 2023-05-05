@@ -4,9 +4,9 @@ from game_functions.print_slow import print_slow
 from random import randint
 import time
 
-u1 = User("Tom", "Sword")
+"""u1 = User("Tom", "Sword")
 m1 = Monster_Easy("Skelebob")
-m2 = Monster_hard("Skelechamp")
+m2 = Monster_hard("Skelechamp")"""
 
 def battle(user, mons1=None, mons2=None):
     battle_on = True
@@ -20,14 +20,11 @@ def battle(user, mons1=None, mons2=None):
                     user_block(user, mons1, mons2)
                 elif action_choice.lower() == "p":
                     user_use_potion(user)
+                elif action_choice.lower() == "i":
+                    show_inventory(user)
                 else:
                     print("Error")
-                damage  = mons1.attack()
-                user.lose_health(damage)
-                user.is_dead()
-                damage2 = mons2.attack()
-                user.lose_health(damage2)
-                user.is_dead()
+                enemies_turn(user, mons1, mons2)
             else:
                 battle_on = False
         except Exception as e:
@@ -41,7 +38,7 @@ def battle_menu(user, mons1, mons2):
         print(f"{mons2.name}\t\t{mons2.health}\n")
     print("---------------------------\n")
     print(f"{user.name}\t\t\t{user.health}\n")
-    print_slow(f"{user.name}:(A)to attack | (B)to block | (P)to use a potion")
+    print_slow(f"{user.name}:(A)to attack | (B)to block | (P)to use a potion | (I)Inventory")
     action_choice = input()
     return action_choice
 
@@ -91,4 +88,23 @@ def user_use_potion(user):
     print(used_potion if user.health < user.max_health else do_not_need_potion)
     user.use_potion("potion")
 
-battle(u1,m1,m2)
+def show_inventory(user):
+    print(f"\n{user.inventory}")
+
+def enemies_turn(user, mons1, mons2):
+    if mons1.health <= 0:
+        turn = 2
+    elif mons2.health <=0:
+        turn = 1 
+    else:
+        turn = randint(1,2)
+    if turn == 1 and mons1.health > 0:
+        damage = mons1.attack()
+        user.lose_health(damage)
+        user.is_dead()
+    if turn == 2 and mons2.health > 0:
+        damage =mons2.attack()
+        user.lose_health(damage)
+        user.is_dead() 
+    
+        

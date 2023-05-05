@@ -3,10 +3,10 @@ from random import randint
 
 class User():
     #user health, when depletes to 0, game over
-    health = 24
     max_health = 50
+    health = max_health
     #users inventory, any items found are added to the list.
-    inventory = ["potion", "potion", "potion", "potion"]
+    inventory = ["INVENTORY"]
     
     def __init__(self, name, weapon):
         self.name = name
