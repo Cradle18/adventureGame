@@ -12,8 +12,9 @@ class Monster():
         self.health = self.health - num
 
     #print a death statement for the monster.
-    def death(self):
-        print(f"{self.name} has died!")
+    def is_dead(self):
+        if self.health <= 0:
+            print(f"{self.name} has died!")
 
     #rolls a dice and selects weapon based on dice value.
     def weapon_select_easy(self):
@@ -57,6 +58,7 @@ class Monster_Easy(Monster):
                 #using a try except block just incase any unknown errors happen in the battle.
                 try:
                     damage = randint(5, 10)
+                    print(f"{self.name} attacks!")
                     to_hit = False
                 except Exception as e:
                     print(f"Oops there was an error {e}")
@@ -85,6 +87,7 @@ class Monster_hard(Monster):
                 #using a try except block just incase any unknown errors happen in the battle.
                 try:
                     damage = randint(10,20)
+                    print(f"{self.name} attacks!")
                     to_hit = False
                 except Exception as e:
                     print(f"Oops there was an error {e}")
