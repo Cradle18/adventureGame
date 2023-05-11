@@ -34,6 +34,8 @@ class Welcome(Scene):
         print_slow(f"Excellent choice {new_user.name}, i hope this {new_user.weapon} keeps you safe, good luck!......")
         time.sleep(1)
         print_slow(f"\n\t\tWelcome Adventurer {new_user.name}!\n\nThe clock has struck midnight let our tale begin.\n")
+        part1 = Part1("Part1")
+        part1.print_part1()
         
         
 
@@ -49,6 +51,14 @@ class Part1(Scene):
 
         #if statement to check what the user decides to do, then prints the next scene.
         if inspect_ahead == "yes":
+            print_slow(f"With one hand ready on your {new_user.weapon}, you move slowly towards the sound ahead, the thunderous clap hitting the ground getting louder!")
+            print("\n'ROAR!'")
+            time.sleep(1)
+            print("\n'CRASH!'")
+            time.sleep(1)
+            print_slow("\nNow all you see is black! As you crash into a tree with a 'CRACK!'.")
+            print_slow("You lay slumbed, back against a broken a tree, a large shadow approaches over you and slings your lifeless body over it's shoulder and walks off back from where it came.")
+            time.sleep(1)
             captured = Captured("Captured")
             captured.print_captured()
         else:
@@ -58,15 +68,7 @@ class Part1(Scene):
 
 class Captured(Scene):
     def print_captured(self):
-        print_slow(f"With one hand ready on your {new_user.weapon}, you move slowly towards the sound ahead, the thunderous clap hitting the ground getting louder!")
         new_user.lose_health(25)
-        print("\n'ROAR!'")
-        time.sleep(1)
-        print("\n'CRASH!'")
-        time.sleep(1)
-        print_slow("\nNow all you see is black! As you crash into a tree with a 'CRACK!'.")
-        print_slow("You lay slumbed, back against a broken a tree, a large shadow approaches over you and slings your lifeless body over it's shoulder and walks off back from where it came.")
-        time.sleep(1)
         print_slow("You awake feeling groggy, a sharp pain banging through your head, your whole body aches.")
         print_slow("While slowly sitting up, you look around and bars of metal suround you, a chain wrapped around one of your legs.")
         print_slow("Conclusion, you are locked in a cage. You sigh and begin to look around for any way out.")
@@ -78,13 +80,15 @@ class Captured(Scene):
             print_slow("You decide to roll over and acept your fate, after sometime you notice the smell of burning.")
             print_slow("Suddenly the cage door crashes open and a ogre grabs you by the arm pulling you out of the cage.")
             print_slow("He pulls with such a force but not enough to pull the chain out of the floor with you, you cry out in pain, as your leg tears away from your body and is left behind with the chain.")
-            print_slow("You scream out in agony as the orge take you towards the fire, atop sits a cauldron, you realise your mistake.")
+            print_slow("You scream out in agony as the orge take you towards the fire, atop sits a cauldron, you realise your mistake.\n")
+            new_user.lose_health(50)
             new_user.is_dead()
+            
     
     def __puzzle_1(self, user):
         print_slow("You scramble your way over to lock and begin to look it over for any clues on how to unlock it")
         print_slow("You notice strange markings on the side and a roller of numbers along the bottom.")
-        print_slow("\nII IV V VII | |1|2|3|4|\n")
+        print_slow("\nSide: II IV V VII | Roller: |1|2|3|4|\n")
         guesses = 3
         while guesses > 0:
             user_answer = input("Whats your guess?: ")
@@ -95,11 +99,11 @@ class Captured(Scene):
             if guesses == 0:
                 print_slow("A strange buzzing sound comes from inside the lock!")
                 time.sleep(0.5)
-                print("\nBANG!")
+                print("\nBANG!\n")
+                user.lose_health(50)
                 user.is_dead()
+                
         
-
-
 class Lost(Scene):
     def __init__(self, name):
         super().__init__(name)
@@ -109,14 +113,20 @@ class Lost(Scene):
         print_slow("You peer round and look back to the road, the ground shakes, as thunderous footsteeps from the path, pass you by.")
         print_slow("You sigh with relief, knowing that the danger has moved on, as the sound of footsteep disappear of into the distance.")
         print_slow("You turn around and realise that now all you can see is black, no light it peering through tree's, which direction do you wish to take?")
-        print("(Left, Right, Forwards, Backwards)")
+        print("(Left, Right, Forward, Backwards)")
         direction = input()
         if direction.lower() == self.directions[0] or direction.lower() == self.directions[1]:
             self.__skeleton_fight_1(new_user)
         elif direction.lower() == self.directions[2]:
-            print("trap")
+            self.__trap()  
         elif direction.lower() == self.directions[3]:
-            print("back to road captured")
+            print_slow("You head back to where you think you came from and push you way through the branches of the bush.")
+            print_slow("You made it! The path is ahead of you again.")
+            print_slow("You begin to step forward, when a shadow looms over you.\n")
+            new_user.lose_health(25)
+            captured = Captured("Captured")   
+            captured.print_captured()
+            
         else:
             print("Invalid input!")
 
@@ -133,6 +143,11 @@ class Lost(Scene):
             print_slow("You can smell the burning of flesh and you realise that you are walking right towards it!")
             
     
-    def __trap(self, user):
-        pass
-            
+    def __trap(self):
+        print_slow("You begin to walk straight ahead, deeper into the darkness.")
+        print_slow("The sounds in the forrest around you begin to disapear and a errie silence falls over you.")
+        print_slow("Even the ground beneath you has softened, creating no sounds when you feet touch the ground. The darkness begins to feel like it's tighting around you!")
+        print_slow("A sudden CREAK! alerts you, as you feel the ground beneath your feet disapear and the feeling of falling hits.")
+
+        captured = Captured("Captured")   
+        captured.print_captured()

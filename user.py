@@ -1,5 +1,7 @@
 #---Imports---#
 from random import randint
+from game_functions.print_slow import print_slow
+import time
 
 class User():
     #user health, when depletes to 0, game over
@@ -85,6 +87,15 @@ class User():
     def is_dead(self):
         if self.health <= 0:
             print("You have died!")
+            time.sleep(1)
+            from scene import Welcome
+            print_slow("\nDo you wish to try again? (yes/no)")
+            try_again = input()
+            if try_again.lower() == "yes":
+                new_start = Welcome("Welcome")
+                new_start.print_welcome()
+            else:
+                exit()
 
 
 """u1 = User("Tom", "Sword")

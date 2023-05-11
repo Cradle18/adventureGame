@@ -8,10 +8,10 @@ from scene import Welcome, Part1
 class Main():
 
     welcome = Welcome("Welcome")
-    part1 = Part1("Part1")
-
     welcome.print_welcome()
-    part1.print_part1()
+
+    print("END OF PART 1")
+    
 
 
 #Let the adventure begin
