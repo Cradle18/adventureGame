@@ -8,14 +8,18 @@ import time
 m1 = Monster_Easy("Skelebob")
 m2 = Monster_hard("Skelechamp")"""
 
+#plays the battle
 def battle(user, mons1=None, mons2=None):
+    #battle status
     battle_on = True
-    user.roll_initiative()
+    #initiative
+    user.roll_initiative() #roll for initiative to decide turn order
     mons1.roll_initiative()
+    #loop to run the battle 
     while battle_on:
         try:
             if user.health > 0 and ((mons1 and mons1.health > 0) or (mons2 and mons2.health > 0)):
-                if user.initiative >= mons1.initiative:
+                if user.initiative >= mons1.initiative: #checks who has the higher initiative roll
                     battle_menu(user, mons1, mons2)
                     enemies_turn(user, mons1, mons2)
                 else:
@@ -26,6 +30,7 @@ def battle(user, mons1=None, mons2=None):
         except Exception as e:
             print(f"oops an error {e}")
 
+#sets up battle menu and deals with user choices
 def battle_menu(user, mons1, mons2):
     if mons1 and mons1.health > 0:
         print("\nEnemy:\t\t\tHealth:\n")
@@ -85,11 +90,12 @@ def user_block(user, mons1, mons2):
         mons2.is_dead() #checks if enemy is dead
     else:
         print("Oops an error occurred")
-    
+
+#sends prompts to screen and calls the user use potion method  
 def user_use_potion(user):
     used_potion = "You use a potion"
     do_not_need_potion = "You don't need that right now"
-    print(used_potion if user.health < user.max_health else do_not_need_potion)
+    print(used_potion if user.health < user.max_health else do_not_need_potion) #prints message bassed on if user needs a potion or not
     user.use_potion("potion")
 
 def show_inventory(user):
