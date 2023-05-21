@@ -3,9 +3,16 @@ from random import randint
 
 class Monster():
     weapon = ""
+    #turn order in battle, is update using the roll_initiative method
+    initiative = 0
 
     def __init__(self, name) -> None:
         self.name = name
+
+    #roll initiative for turn order
+    def roll_initiative(self):
+        roll = randint(1,6)
+        self.initiative = roll
 
     #deplete health function
     def lose_health(self, num):

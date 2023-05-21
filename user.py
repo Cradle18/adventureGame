@@ -9,10 +9,17 @@ class User():
     health = max_health
     #users inventory, any items found are added to the list.
     inventory = ["INVENTORY"]
+    #turn order in battle, is update using the roll_initiative method
+    initiative = 0
     
     def __init__(self, name, weapon):
         self.name = name
         self.weapon = weapon
+
+    #roll initiative for turn order
+    def roll_initiative(self):
+        roll = randint(1,6)
+        self.initiative = roll
     
     #if user takes damage, removes the damage amount from total health.
     def lose_health(self, num):

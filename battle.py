@@ -10,21 +10,17 @@ m2 = Monster_hard("Skelechamp")"""
 
 def battle(user, mons1=None, mons2=None):
     battle_on = True
+    user.roll_initiative()
+    mons1.roll_initiative()
     while battle_on:
         try:
             if user.health > 0 and ((mons1 and mons1.health > 0) or (mons2 and mons2.health > 0)):
-                action_choice = battle_menu(user, mons1, mons2)
-                if action_choice.lower() == "a":
-                    user_attack(user, mons1, mons2)
-                elif action_choice.lower() == "b":
-                    user_block(user, mons1, mons2)
-                elif action_choice.lower() == "p":
-                    user_use_potion(user)
-                elif action_choice.lower() == "i":
-                    show_inventory(user)
+                if user.initiative >= mons1.initiative:
+                    battle_menu(user, mons1, mons2)
+                    enemies_turn(user, mons1, mons2)
                 else:
-                    print("Error")
-                enemies_turn(user, mons1, mons2)
+                    enemies_turn(user, mons1, mons2)
+                    battle_menu(user, mons1, mons2)
             else:
                 battle_on = False
         except Exception as e:
@@ -40,7 +36,15 @@ def battle_menu(user, mons1, mons2):
     print(f"{user.name}\t\t\t{user.health}\n")
     print_slow(f"{user.name}:(A)to attack | (B)to block | (P)to use a potion | (I)Inventory")
     action_choice = input()
-    return action_choice
+    if action_choice.lower() == "a":
+        user_attack(user, mons1, mons2)
+    elif action_choice.lower() == "b":
+        user_block(user, mons1, mons2)
+    elif action_choice.lower() == "p":
+        user_use_potion(user)
+    elif action_choice.lower() == "i":
+        show_inventory(user)
+        battle_menu(user, mons1, mons2)
 
 #runs users attacks functions
 def user_attack(user, mons1,mons2):
@@ -92,19 +96,19 @@ def show_inventory(user):
     print(f"\n{user.inventory}")
 
 def enemies_turn(user, mons1, mons2):
-    if mons1.health <= 0:
-        turn = 2
-    elif mons2.health <=0:
-        turn = 1 
-    else:
-        turn = randint(1,2)
-    if turn == 1 and mons1.health > 0:
+    if mons1.health > 0:
         damage = mons1.attack()
         user.lose_health(damage)
         user.is_dead()
-    if turn == 2 and mons2.health > 0:
-        damage =mons2.attack()
+    if mons2.health > 0:
+        damage = mons2.attack()
         user.lose_health(damage)
-        user.is_dead() 
+        user.is_dead()
     
-        
+"""user = User("Tom", "Sword")
+mons1 = Monster_Easy("Jim")
+mons2 = Monster_Easy("Tim")
+mons3 = Monster_Easy("Jim")
+mons4 = Monster_Easy("Jim")
+
+battle(user, mons1, mons2)"""
