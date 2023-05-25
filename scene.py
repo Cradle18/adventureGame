@@ -102,6 +102,19 @@ class Captured(Scene):
                 print("\nBANG!\n")
                 user.lose_health(50)
                 user.is_dead()
+        print_slow("The lock falls to the floor and the gate swings open, success you are free!")
+        print_slow("You slowly creep out of the cage and head towards a light coming from nearby, you can hear grunting and shouting ahead.")
+        print_slow(f"You see your {user.weapon} laying on the ground near a rock and you head over to grab it. O look a potion too!")
+        user.add_to_invent("potion")
+        print_slow("Suddenly a loud ROAR comes from behind")
+        print_slow("You turn around to find yourself face to face with two large ogre's!")
+        self.__ogre_fight(new_user)
+
+    def __ogre_fight(self, user):
+        print(f"You raise your {user.weapon}, ready for a fight, knowing your life hangs in the balance")
+        ogre = Monster_hard("Jerry")
+        ogre2 = Monster_hard("Jeff")
+        battle(user, ogre, ogre2)
                 
         
 class Lost(Scene):
@@ -151,3 +164,5 @@ class Lost(Scene):
 
         captured = Captured("Captured")   
         captured.print_captured()
+
+    

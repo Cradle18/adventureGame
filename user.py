@@ -29,6 +29,7 @@ class User():
     #add to users inventory.
     def add_to_invent(self, item):
         self.inventory.append(item)
+        print(f"You added {item} to inventory!")
 
     #remove from users inventory.
     def remove_from_invent(self, item):
@@ -58,6 +59,7 @@ class User():
                     heal_ok = False
             else:
                 print("You have no potions!")
+                heal_ok = False
         
     #attack funtion to be used in battles, rolls to hit and then selects damage at random.
     def attack(self):

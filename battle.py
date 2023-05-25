@@ -93,7 +93,7 @@ def user_block(user, mons1, mons2):
 
 #sends prompts to screen and calls the user use potion method  
 def user_use_potion(user):
-    used_potion = "You use a potion"
+    used_potion = "You use a potion" if "potion" in user.inventory else ""
     do_not_need_potion = "You don't need that right now"
     print(used_potion if user.health < user.max_health else do_not_need_potion) #prints message bassed on if user needs a potion or not
     user.use_potion("potion")
